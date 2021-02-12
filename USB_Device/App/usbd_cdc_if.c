@@ -63,8 +63,7 @@
   */
 
 /* USER CODE BEGIN PRIVATE_DEFINES */
-#define APP_RX_DATA_SIZE  2048
-#define APP_TX_DATA_SIZE  2048
+
 /* USER CODE END PRIVATE_DEFINES */
 
 /**
@@ -111,6 +110,8 @@ uint32_t UserTxBufPtrOut; /* Increment this pointer or roll it back to
                                  start address when data are sent over USB */
 
 __IO uint32_t uwPrescalerValue;
+
+extern uint8_t is_new_data_ready;
 /* USER CODE END PRIVATE_VARIABLES */
 
 /**
@@ -316,6 +317,8 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
 {
   /* USER CODE BEGIN 6 */
   //HAL_UART_Transmit_DMA(&UartHandle, Buf, *Len);
+  is_new_data_ready = 1;
+  memcpy(Buf, UserRxBufferFS, *Len);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
   return (USBD_OK);
   /* USER CODE END 6 */

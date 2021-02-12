@@ -49,6 +49,9 @@
   * @{
   */
 /* USER CODE BEGIN EXPORTED_DEFINES */
+#define APP_RX_DATA_SIZE  2048
+#define APP_TX_DATA_SIZE  2048
+/*
 #define USARTx                           USART1
 #define USARTx_CLK_ENABLE()              __HAL_RCC_USART1_CLK_ENABLE()
 #define DMAx_CLK_ENABLE()                do {                                \
@@ -61,7 +64,6 @@
 #define USARTx_FORCE_RESET()             __HAL_RCC_USART1_FORCE_RESET()
 #define USARTx_RELEASE_RESET()           __HAL_RCC_USART1_RELEASE_RESET()
 
-/* Definition for USARTx Pins */
 #define USARTx_TX_PIN                     GPIO_PIN_9
 #define USARTx_TX_GPIO_PORT               GPIOA
 #define USARTx_TX_AF                      GPIO_AF7_USART1
@@ -69,35 +71,29 @@
 #define USARTx_RX_GPIO_PORT               GPIOA
 #define USARTx_RX_AF                      GPIO_AF7_USART1
 
-/* Definition for USARTx's DMA */
 #define USARTx_TX_DMA_CHANNEL             DMA1_Channel1
 #define USARTx_RX_DMA_CHANNEL             DMA1_Channel2
 
-/* Definition for USARTx's DMA Request */
 #define USARTx_TX_DMA_REQUEST             DMA_REQUEST_USART1_TX
 
-/* Definition for USARTx's NVIC */
 #define USARTx_DMA_TX_IRQn                DMA1_Channel1_IRQn
 #define USARTx_RX_IRQn                    DMA1_Channel2_IRQn
 #define USARTx_DMA_TX_IRQHandler          DMA1_Channel1_IRQHandler
 #define USARTx_RX_IRQHandler              DMA1_Channel2_IRQHandler
 
-/* Definition for USARTx's NVIC */
 #define USARTx_IRQn                       USART1_IRQn
 #define USARTx_IRQHandler                 USART1_IRQHandler
 
-/* Size of Reception buffer */
 #define RXBUFFERSIZE                      10
 
-/* Definition for TIMx clock resources */
 #define TIMx                             TIM2
 #define TIMx_CLK_ENABLE                  __HAL_RCC_TIM2_CLK_ENABLE
 #define TIMx_FORCE_RESET()               __HAL_RCC_TIM2_FORCE_RESET()
 #define TIMx_RELEASE_RESET()             __HAL_RCC_TIM2_RELEASE_RESET()
 
-/* Definition for TIMx's NVIC */
 #define TIMx_IRQn                        TIM2_IRQn
 #define TIMx_IRQHandler                  TIM2_IRQHandler
+*/
 /* USER CODE END EXPORTED_DEFINES */
 
 /**

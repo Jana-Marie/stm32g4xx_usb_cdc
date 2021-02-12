@@ -20,6 +20,10 @@ static void MX_HRTIM1_Init(void);
 static void MX_DAC2_Init(void);
 static void MX_USB_PCD_Init(void);
 
+extern uint8_t UserRxBufferFS[APP_RX_DATA_SIZE];
+extern uint8_t UserTxBufferFS[APP_TX_DATA_SIZE];
+uint8_t is_new_data_ready;
+
 int main(void)
 {
   HAL_Init();
@@ -38,7 +42,6 @@ int main(void)
 
   MX_USB_Device_Init();
 
-
   while (1)
   {
     HAL_GPIO_WritePin(GPIOB, LED_B_Pin, 0);
@@ -49,6 +52,7 @@ int main(void)
     HAL_Delay(250);
 
     //cdc_put("Otter", 6);
+    CDC_Transmit_FS("Otter", 6);
 
     /*
     HAL_Delay(250);

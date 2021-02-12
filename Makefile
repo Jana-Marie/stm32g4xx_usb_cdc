@@ -70,6 +70,16 @@ USB_Device/App/usbd_cdc_if.c \
 USB_Device/App/usb_device.c \
 USB_Device/Target/usbd_conf.c \
 USB_Device/App/usbd_desc.c \
+Src/scpi-def.c \
+libscpi/src/error.c \
+libscpi/src/expression.c \
+libscpi/src/fifo.c \
+libscpi/src/ieee488.c \
+libscpi/src/lexer.c \
+libscpi/src/minimal.c \
+libscpi/src/parser.c \
+libscpi/src/units.c \
+libscpi/src/utils.c \
 Src/system_stm32g4xx.c
 
 #USB_Device/App/usb_device.c
@@ -140,6 +150,7 @@ C_INCLUDES =  \
 -IMiddlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc \
 -IMiddlewares/ST/STM32_USB_Device_Library/Core/Inc \
 -IUSB_Device/App \
+-Ilibscpi/inc \
 -IUSB_Device/Target
 
 #-IUSB_Device/App

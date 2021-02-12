@@ -319,6 +319,7 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   //HAL_UART_Transmit_DMA(&UartHandle, Buf, *Len);
   is_new_data_ready = 1;
   memcpy(Buf, UserRxBufferFS, *Len);
+  SCPI_Input(&scpi_context, UserRxBufferFS, *Len);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
   return (USBD_OK);
   /* USER CODE END 6 */

@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "usb_device.h"
-#include "scpi/scpi.h"
-#include "scpi-def.h"
 
 COMP_HandleTypeDef hcomp1;
 
@@ -64,9 +62,9 @@ int main(void)
 
     //CDC_Transmit_FS("Otter", 6);
 
-    if(is_new_data_ready){
-      SCPI_Input(&scpi_context, UserRxBufferFS, strlen(UserRxBufferFS));
-    }
+    //if(is_new_data_ready){
+    //  SCPI_Input(&scpi_context, UserRxBufferFS, strlen(UserRxBufferFS));
+    //}
   }
 }
 

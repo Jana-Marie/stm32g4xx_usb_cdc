@@ -92,7 +92,7 @@ int main(void)
 
 size_t SCPI_Write(scpi_t * context, const char * data, size_t len) {
     (void) context;
-    return CDC_Transmit_FS(data, 1);
+    return CDC_Transmit_FS(data, len);
 }
 
 scpi_result_t SCPI_Flush(scpi_t * context) {

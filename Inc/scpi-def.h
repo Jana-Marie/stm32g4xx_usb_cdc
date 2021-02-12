@@ -33,10 +33,10 @@
 
 #define SCPI_INPUT_BUFFER_LENGTH 256
 #define SCPI_ERROR_QUEUE_SIZE 17
-#define SCPI_IDN1 "MANUFACTURE"
-#define SCPI_IDN2 "INSTR2013"
+#define SCPI_IDN1 "MANUFACTURE\r\n"
+#define SCPI_IDN2 "INSTR2013\r\n"
 #define SCPI_IDN3 NULL
-#define SCPI_IDN4 "01-02"
+#define SCPI_IDN4 "01-02\r\n"
 
 extern const scpi_command_t scpi_commands[];
 extern scpi_interface_t scpi_interface;
@@ -54,4 +54,3 @@ scpi_result_t SCPI_Flush(scpi_t * context);
 scpi_result_t SCPI_SystemCommTcpipControlQ(scpi_t * context);
 
 #endif /* __SCPI_DEF_H_ */
-

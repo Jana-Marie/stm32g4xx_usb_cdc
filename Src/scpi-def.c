@@ -43,10 +43,9 @@
 
 static scpi_result_t DMM_MeasureVoltageDcQ(scpi_t * context) {
     scpi_number_t param1, param2;
-    char bf[15];
-    char _err[50];
-    sprintf(_err, "meas:volt:dc\r\n"); /* debug command name */
-    CDC_Transmit_FS(_err, 50);
+    char bf1[15];
+    char bf2[15];
+    char _err[150] = {0};
 
     /* read first parameter if present */
     if (!SCPI_ParamNumber(context, scpi_special_numbers_def, &param1, FALSE)) {
@@ -59,14 +58,13 @@ static scpi_result_t DMM_MeasureVoltageDcQ(scpi_t * context) {
     }
 
 
-    SCPI_NumberToStr(context, scpi_special_numbers_def, &param1, bf, 15);
-    sprintf(_err, "\tP1=%s\r\n", bf);
-    CDC_Transmit_FS(_err, 50);
+    SCPI_NumberToStr(context, scpi_special_numbers_def, &param1, bf1, 15);
 
 
-    SCPI_NumberToStr(context, scpi_special_numbers_def, &param2, bf, 15);
-    sprintf(_err, "\tP2=%s\r\n", bf);
-    CDC_Transmit_FS(_err, 50);
+    SCPI_NumberToStr(context, scpi_special_numbers_def, &param2, bf2, 15);
+
+    sprintf(_err, "meas:volt:dc\r\n\tP1=%s\r\n\tP2=%s\r\n", bf1, bf2);
+    CDC_Transmit_FS(_err, 150);
 
     SCPI_ResultDouble(context, 0);
 
@@ -75,10 +73,9 @@ static scpi_result_t DMM_MeasureVoltageDcQ(scpi_t * context) {
 
 static scpi_result_t DMM_MeasureVoltageAcQ(scpi_t * context) {
     scpi_number_t param1, param2;
-    char bf[15];
-    char _err[50];
-    sprintf(_err, "meas:volt:ac\r\n"); /* debug command name */
-    CDC_Transmit_FS(_err, 50);
+    char bf1[15];
+    char bf2[15];
+    char _err[150] = {0};
 
     /* read first parameter if present */
     if (!SCPI_ParamNumber(context, scpi_special_numbers_def, &param1, FALSE)) {
@@ -91,14 +88,14 @@ static scpi_result_t DMM_MeasureVoltageAcQ(scpi_t * context) {
     }
 
 
-    SCPI_NumberToStr(context, scpi_special_numbers_def, &param1, bf, 15);
-    sprintf(_err, "\tP1=%s\r\n", bf);
-    CDC_Transmit_FS(_err, 50);
+    SCPI_NumberToStr(context, scpi_special_numbers_def, &param1, bf1, 15);
 
 
-    SCPI_NumberToStr(context, scpi_special_numbers_def, &param2, bf, 15);
-    sprintf(_err, "\tP2=%s\r\n", bf);
-    CDC_Transmit_FS(_err, 50);
+
+    SCPI_NumberToStr(context, scpi_special_numbers_def, &param2, bf2, 15);
+
+    sprintf(_err, "meas:volt:ac\r\n\tP1=%s\r\n\tP2=%s\r\n", bf1, bf2);
+    CDC_Transmit_FS(_err, 150);
 
     SCPI_ResultDouble(context, 0);
 
@@ -107,9 +104,7 @@ static scpi_result_t DMM_MeasureVoltageAcQ(scpi_t * context) {
 
 static scpi_result_t DMM_ConfigureVoltageDc(scpi_t * context) {
     double param1, param2;
-    char _err[50];
-    sprintf(_err, "conf:volt:dc\r\n"); /* debug command name */
-    CDC_Transmit_FS(_err, 50);
+    char _err[150] = {0};
 
     /* read first parameter if present */
     if (!SCPI_ParamDouble(context, &param1, TRUE)) {
@@ -121,27 +116,23 @@ static scpi_result_t DMM_ConfigureVoltageDc(scpi_t * context) {
         /* do something, if parameter not present */
     }
 
-    sprintf(_err, "\tP1=%lf\r\n", param1);
-    CDC_Transmit_FS(_err, 50);
-    sprintf(_err, "\tP2=%lf\r\n", param2);
-    CDC_Transmit_FS(_err, 50);
+    sprintf(_err, "conf:volt:dc\r\n\tP1=%lf\r\n\tP2=%lf\r\n", param1, param2);
+    CDC_Transmit_FS(_err, 150);
 
     return SCPI_RES_OK;
 }
 
 static scpi_result_t TEST_Bool(scpi_t * context) {
     scpi_bool_t param1;
-    char _err[50];
-    sprintf(_err, "TEST:BOOL\r\n"); /* debug command name */
-    CDC_Transmit_FS(_err, 50);
+    char _err[150] = {0};
 
     /* read first parameter if present */
     if (!SCPI_ParamBool(context, &param1, TRUE)) {
         return SCPI_RES_ERR;
     }
 
-    sprintf(_err, "\tP1=%d\r\n", param1);
-    CDC_Transmit_FS(_err, 50);
+    sprintf(_err, "TEST:BOOL\r\n\tP1=%d\r\n", param1);
+    CDC_Transmit_FS(_err, 150);
 
     return SCPI_RES_OK;
 }
@@ -154,7 +145,7 @@ scpi_choice_def_t trigger_source[] = {
 };
 
 static scpi_result_t TEST_ChoiceQ(scpi_t * context) {
-    char _err[50];
+    char _err[150] = {0};
     int32_t param;
     const char * name;
 
@@ -163,8 +154,9 @@ static scpi_result_t TEST_ChoiceQ(scpi_t * context) {
     }
 
     SCPI_ChoiceToName(trigger_source, param, &name);
+
     sprintf(_err, "\tP1=%s (%ld)\r\n", name, (long int) param);
-    CDC_Transmit_FS(_err, 50);
+    CDC_Transmit_FS(_err, 150);
 
     SCPI_ResultInt32(context, param);
 
@@ -173,27 +165,27 @@ static scpi_result_t TEST_ChoiceQ(scpi_t * context) {
 
 static scpi_result_t TEST_Numbers(scpi_t * context) {
     int32_t numbers[2];
-    char _err[50];
+    char _err[150] = {0};
 
     SCPI_CommandNumbers(context, numbers, 2, 1);
 
     sprintf(_err, "TEST numbers %d %d\r\n", numbers[0], numbers[1]);
-    CDC_Transmit_FS(_err, 50);
+    CDC_Transmit_FS(_err, 150);
 
     return SCPI_RES_OK;
 }
 
 static scpi_result_t TEST_Text(scpi_t * context) {
     char buffer[100];
-    char _err[50];
+    char _err[150] = {0};
     size_t copy_len;
 
-    if (!SCPI_ParamCopyText(context, buffer, sizeof (buffer), &copy_len, FALSE)) {
+    if (!SCPI_ParamCopyText(context, buffer, sizeof(buffer), &copy_len, FALSE)) {
         buffer[0] = '\0';
     }
 
     sprintf(_err, "TEXT: ***%s***\r\n", buffer);
-    CDC_Transmit_FS(_err, 50);
+    CDC_Transmit_FS(_err, 150);
 
     return SCPI_RES_OK;
 }
@@ -349,15 +341,17 @@ static scpi_result_t TEST_Chanlst(scpi_t *context) {
 
     {
         size_t i;
-        char _err[50];
+        char _err[150] = {0};
         sprintf(_err, "TEST_Chanlst: ");
-        CDC_Transmit_FS(_err, 50);
+        CDC_Transmit_FS(_err, 150);
+        HAL_Delay(1);
         for (i = 0; i< arr_idx; i++) {
             sprintf(_err, "%d!%d, ", array[i].row, array[i].col);
-            CDC_Transmit_FS(_err, 50);
+            CDC_Transmit_FS(_err, 150);
+            HAL_Delay(1);
         }
         sprintf(_err, "\r\n");
-        CDC_Transmit_FS(_err, 50);
+        CDC_Transmit_FS(_err, 150);
     }
     return SCPI_RES_OK;
 }

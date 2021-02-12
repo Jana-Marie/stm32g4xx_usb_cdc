@@ -59,12 +59,6 @@ int main(void)
     HAL_Delay(250);
     HAL_GPIO_WritePin(GPIOB, LED_B_Pin, 1);
     HAL_Delay(250);
-
-    //CDC_Transmit_FS("Otter", 6);
-
-    //if(is_new_data_ready){
-    //  SCPI_Input(&scpi_context, UserRxBufferFS, strlen(UserRxBufferFS));
-    //}
   }
 }
 

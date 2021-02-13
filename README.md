@@ -2,6 +2,15 @@
 
 This repo contains a STM32G474 USB CDC example implementation, combined with [Jan Breuer's SCPI parser library v2](https://www.jaybee.cz/scpi-parser/) allowing you to build your own STM32G4xx based scientific instruments.
 
+The STM will present a Serial device, running a SCPI parser.
+
+![The STM will present a Serial device, running a SCPI parser.](images/acm.png)
+
+A query speed test can be performed by running `testscripts/speedtest.py`, performances up to 70ms/100 requests have been seen.
+
+![query speed test](images/speed.png)
+
+
 ### Working example instruments
 
 [NiklasFauth's Wireless Charging SMU](https://github.com/NiklasFauth/charge-hf)

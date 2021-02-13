@@ -33,6 +33,7 @@ extern "C" {
 #include "usbd_cdc_if.h"
 #include "scpi/scpi.h"
 #include "scpi-def.h"
+#include "usb_device.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */

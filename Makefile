@@ -59,17 +59,23 @@ Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_hrtim.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_pwr.c \
+Src/system_stm32g4xx.c
+
+C_SOURCES += \
+usb_cdc_g4/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c \
+usb_cdc_g4/STM32_USB_Device_Library/Core/Src/usbd_core.c \
+usb_cdc_g4/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c \
+usb_cdc_g4/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pcd.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pcd_ex.c \
 Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usb.c \
-Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c \
-Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c \
-Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c \
-Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c \
-USB_Device/App/usbd_cdc_if.c \
-USB_Device/App/usb_device.c \
-USB_Device/Target/usbd_conf.c \
-USB_Device/App/usbd_desc.c \
+usb_cdc_g4/Src/usbd_cdc_if.c \
+usb_cdc_g4/Src/usb_device.c \
+usb_cdc_g4/Src/usbd_conf.c \
+usb_cdc_g4/Src/usbd_it.c \
+usb_cdc_g4/Src/usbd_desc.c
+
+C_SOURCES += \
 Src/scpi-def.c \
 libscpi/src/error.c \
 libscpi/src/expression.c \
@@ -80,13 +86,7 @@ libscpi/src/minimal.c \
 libscpi/src/parser.c \
 libscpi/src/units.c \
 libscpi/src/utils.c \
-Src/scpi-com.c \
-Src/system_stm32g4xx.c
-
-#USB_Device/App/usb_device.c
-#
-#USB_Device/App/usbd_desc.c
-#USB_Device/Target/usbd_conf.c
+Src/scpi-com.c
 
 # ASM sources
 ASM_SOURCES =  \
@@ -148,11 +148,13 @@ C_INCLUDES =  \
 -IDrivers/STM32G4xx_HAL_Driver/Inc/Legacy \
 -IDrivers/CMSIS/Device/ST/STM32G4xx/Include \
 -IDrivers/CMSIS/Include \
--IMiddlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc \
--IMiddlewares/ST/STM32_USB_Device_Library/Core/Inc \
--IUSB_Device/App \
 -Ilibscpi/inc \
 -IUSB_Device/Target
+
+C_INCLUDES +=  \
+-Iusb_cdc_g4/STM32_USB_Device_Library/Class/CDC/Inc \
+-Iusb_cdc_g4/STM32_USB_Device_Library/Core/Inc \
+-Iusb_cdc_g4/Inc
 
 #-IUSB_Device/App
 #-IUSB_Device/Target

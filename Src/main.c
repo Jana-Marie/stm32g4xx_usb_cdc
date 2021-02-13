@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "usb_device.h"
 
 COMP_HandleTypeDef hcomp1;
 
@@ -12,7 +11,6 @@ DAC_HandleTypeDef hdac2;
 HRTIM_HandleTypeDef hhrtim1;
 DMA_HandleTypeDef hdma_hrtim1_a;
 
-PCD_HandleTypeDef hpcd_USB_FS;
 
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
@@ -21,12 +19,11 @@ static void MX_COMP1_Init(void);
 static void MX_DAC1_Init(void);
 static void MX_HRTIM1_Init(void);
 static void MX_DAC2_Init(void);
-static void MX_USB_PCD_Init(void);
 
 extern uint8_t UserRxBufferFS[APP_RX_DATA_SIZE];
 extern uint8_t UserTxBufferFS[APP_TX_DATA_SIZE];
-uint8_t is_new_data_ready;
-uint16_t new_data_length;
+extern uint8_t is_new_data_ready;
+extern uint16_t new_data_length;
 
 int main(void)
 {
@@ -261,19 +258,6 @@ static void MX_HRTIM1_Init(void)
   HAL_HRTIM_TimeBaseConfig(&hhrtim1, HRTIM_TIMERINDEX_TIMER_D, &pTimeBaseCfg);
   HAL_HRTIM_WaveformTimerControl(&hhrtim1, HRTIM_TIMERINDEX_TIMER_D, &pTimerCtl);
   HAL_HRTIM_MspPostInit(&hhrtim1);
-}
-
-static void MX_USB_PCD_Init(void)
-{
-  hpcd_USB_FS.Instance = USB;
-  hpcd_USB_FS.Init.dev_endpoints = 8;
-  hpcd_USB_FS.Init.speed = PCD_SPEED_FULL;
-  hpcd_USB_FS.Init.phy_itface = PCD_PHY_EMBEDDED;
-  hpcd_USB_FS.Init.Sof_enable = DISABLE;
-  hpcd_USB_FS.Init.low_power_enable = DISABLE;
-  hpcd_USB_FS.Init.lpm_enable = DISABLE;
-  hpcd_USB_FS.Init.battery_charging_enable = DISABLE;
-  HAL_PCD_Init(&hpcd_USB_FS);
 }
 
 static void MX_DMA_Init(void)

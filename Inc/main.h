@@ -54,9 +54,6 @@ extern "C" {
 /* USER CODE BEGIN EM */
 
 /* USER CODE END EM */
-
-void HAL_HRTIM_MspPostInit(HRTIM_HandleTypeDef *hhrtim);
-
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 

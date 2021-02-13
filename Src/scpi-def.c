@@ -46,14 +46,12 @@ static double output = 1337.23f;
 
 static scpi_result_t EXAMPLE_MeasureVoltageIn(scpi_t * context) {
     SCPI_ResultDouble(context, output);
-    SCPI_ResultUInt32(context, voltage);
 
     return SCPI_RES_OK;
 }
 
 static scpi_result_t EXAMPLE_MeasureVoltageOut(scpi_t * context) {
     SCPI_ResultUInt32(context, voltage);
-    SCPI_ResultDouble(context, output);
 
     return SCPI_RES_OK;
 }
@@ -81,7 +79,7 @@ static scpi_result_t DMM_MeasureVoltageAcQ(scpi_t * context) {
 
     SCPI_NumberToStr(context, scpi_special_numbers_def, &param2, bf2, 15);
 
-    sprintf(_err, "meas:volt:ac\r\n\tP1=%s\r\n\tP2=%s\r\n", bf1, bf2);
+    sprintf(_err, "meas:volt:ac\tP1=%s\tP2=%s", bf1, bf2);
     CDC_Transmit_FS(_err, 150);
 
     SCPI_ResultDouble(context, 0);
@@ -103,7 +101,7 @@ static scpi_result_t DMM_ConfigureVoltageDc(scpi_t * context) {
         /* do something, if parameter not present */
     }
 
-    sprintf(_err, "conf:volt:dc\r\n\tP1=%lf\r\n\tP2=%lf\r\n", param1, param2);
+    sprintf(_err, "conf:volt:dc\tP1=%lf\tP2=%lf", param1, param2);
     CDC_Transmit_FS(_err, 150);
 
     return SCPI_RES_OK;
@@ -118,7 +116,7 @@ static scpi_result_t TEST_Bool(scpi_t * context) {
         return SCPI_RES_ERR;
     }
 
-    sprintf(_err, "TEST:BOOL\r\n\tP1=%d\r\n", param1);
+    sprintf(_err, "TEST:BOOL\tP1=%d", param1);
     CDC_Transmit_FS(_err, 150);
 
     return SCPI_RES_OK;
@@ -142,7 +140,7 @@ static scpi_result_t TEST_ChoiceQ(scpi_t * context) {
 
     SCPI_ChoiceToName(trigger_source, param, &name);
 
-    sprintf(_err, "\tP1=%s (%ld)\r\n", name, (long int) param);
+    sprintf(_err, "\tP1=%s (%ld)", name, (long int) param);
     CDC_Transmit_FS(_err, 150);
 
     SCPI_ResultInt32(context, param);
@@ -156,7 +154,7 @@ static scpi_result_t TEST_Numbers(scpi_t * context) {
 
     SCPI_CommandNumbers(context, numbers, 2, 1);
 
-    sprintf(_err, "TEST numbers %d %d\r\n", numbers[0], numbers[1]);
+    sprintf(_err, "TEST numbers %d %d", numbers[0], numbers[1]);
     CDC_Transmit_FS(_err, 150);
 
     return SCPI_RES_OK;
@@ -171,7 +169,7 @@ static scpi_result_t TEST_Text(scpi_t * context) {
         buffer[0] = '\0';
     }
 
-    sprintf(_err, "TEXT: ***%s***\r\n", buffer);
+    sprintf(_err, "TEXT: ***%s***", buffer);
     CDC_Transmit_FS(_err, 150);
 
     return SCPI_RES_OK;

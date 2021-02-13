@@ -80,6 +80,7 @@ libscpi/src/minimal.c \
 libscpi/src/parser.c \
 libscpi/src/units.c \
 libscpi/src/utils.c \
+Src/scpi-com.c \
 Src/system_stm32g4xx.c
 
 #USB_Device/App/usb_device.c
@@ -122,7 +123,7 @@ CPU = -mcpu=cortex-m4
 FPU = -mfpu=fpv4-sp-d16
 
 # float-abi
-FLOAT-ABI = -mfloat-abi=hard
+FLOAT-ABI = -mfloat-abi=hard -u _printf_float
 
 # mcu
 MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)

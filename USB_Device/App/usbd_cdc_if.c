@@ -111,7 +111,8 @@ uint32_t UserTxBufPtrOut; /* Increment this pointer or roll it back to
 
 __IO uint32_t uwPrescalerValue;
 
-extern uint8_t is_new_data_ready;
+extern uint8_t  is_new_data_ready;
+extern uint16_t new_data_length;
 /* USER CODE END PRIVATE_VARIABLES */
 
 /**
@@ -319,7 +320,7 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   //HAL_UART_Transmit_DMA(&UartHandle, Buf, *Len);
   is_new_data_ready = 1;
   memcpy(Buf, UserRxBufferFS, *Len);
-  SCPI_Input(&scpi_context, UserRxBufferFS, *Len);
+  new_data_length = *Len;
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
   return (USBD_OK);
   /* USER CODE END 6 */

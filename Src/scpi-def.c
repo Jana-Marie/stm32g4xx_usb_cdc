@@ -41,32 +41,19 @@
 #include "scpi/scpi.h"
 #include "scpi-def.h"
 
-static scpi_result_t DMM_MeasureVoltageDcQ(scpi_t * context) {
-    scpi_number_t param1, param2;
-    char bf1[15];
-    char bf2[15];
-    char _err[150] = {0};
+static uint32_t voltage = 1337;
+static double output = 1337.23f;
 
-    /* read first parameter if present */
-    if (!SCPI_ParamNumber(context, scpi_special_numbers_def, &param1, FALSE)) {
-        /* do something, if parameter not present */
-    }
+static scpi_result_t EXAMPLE_MeasureVoltageIn(scpi_t * context) {
+    SCPI_ResultDouble(context, output);
+    SCPI_ResultUInt32(context, voltage);
 
-    /* read second paraeter if present */
-    if (!SCPI_ParamNumber(context, scpi_special_numbers_def, &param2, FALSE)) {
-        /* do something, if parameter not present */
-    }
+    return SCPI_RES_OK;
+}
 
-
-    SCPI_NumberToStr(context, scpi_special_numbers_def, &param1, bf1, 15);
-
-
-    SCPI_NumberToStr(context, scpi_special_numbers_def, &param2, bf2, 15);
-
-    sprintf(_err, "meas:volt:dc\r\n\tP1=%s\r\n\tP2=%s\r\n", bf1, bf2);
-    CDC_Transmit_FS(_err, 150);
-
-    SCPI_ResultDouble(context, 0);
+static scpi_result_t EXAMPLE_MeasureVoltageOut(scpi_t * context) {
+    SCPI_ResultUInt32(context, voltage);
+    SCPI_ResultDouble(context, output);
 
     return SCPI_RES_OK;
 }
@@ -405,13 +392,15 @@ const scpi_command_t scpi_commands[] = {
 
     {.pattern = "STATus:PRESet", .callback = SCPI_StatusPreset,},
 
+    {.pattern = "MEASure:VOLTage:DC:INput?", .callback = EXAMPLE_MeasureVoltageIn,},
+    {.pattern = "MEASure:VOLTage:DC:OUTput?", .callback = EXAMPLE_MeasureVoltageOut,},
     /* DMM */
-    {.pattern = "MEASure:VOLTage:DC?", .callback = DMM_MeasureVoltageDcQ,},
-    {.pattern = "CONFigure:VOLTage:DC", .callback = DMM_ConfigureVoltageDc,},
-    {.pattern = "MEASure:VOLTage:DC:RATio?", .callback = SCPI_StubQ,},
-    {.pattern = "MEASure:VOLTage:AC?", .callback = DMM_MeasureVoltageAcQ,},
-    {.pattern = "MEASure:CURRent:DC?", .callback = SCPI_StubQ,},
-    {.pattern = "MEASure:CURRent:AC?", .callback = SCPI_StubQ,},
+    //{.pattern = "MEASure:VOLTage:DC?", .callback = DMM_MeasureVoltageDcQ,},
+    //{.pattern = "CONFigure:VOLTage:DC", .callback = DMM_ConfigureVoltageDc,},
+    //{.pattern = "MEASure:VOLTage:DC:RATio?", .callback = SCPI_StubQ,},
+    //{.pattern = "MEASure:VOLTage:AC?", .callback = DMM_MeasureVoltageAcQ,},
+    //{.pattern = "MEASure:CURRent:DC?", .callback = SCPI_StubQ,},
+    //{.pattern = "MEASure:CURRent:AC?", .callback = SCPI_StubQ,},
     {.pattern = "MEASure:RESistance?", .callback = SCPI_StubQ,},
     {.pattern = "MEASure:FRESistance?", .callback = SCPI_StubQ,},
     {.pattern = "MEASure:FREQuency?", .callback = SCPI_StubQ,},

@@ -26,31 +26,56 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef __SCPI_DEF_H_
-#define __SCPI_DEF_H_
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include "scpi/scpi.h"
+ #include "scpi-def.h"
 
-#include "scpi/scpi.h"
+size_t SCPI_Write(scpi_t * context, const char * data, size_t len) {
+    (void) context;
 
-#define SCPI_INPUT_BUFFER_LENGTH 256
-#define SCPI_ERROR_QUEUE_SIZE 17
-#define SCPI_IDN1 "OTTERSCIENTIFIC\r\n"
-#define SCPI_IDN2 "Mini-TDR\r\n"
-#define SCPI_IDN3 NULL
-#define SCPI_IDN4 "01-01\r\n"
+    while (CDC_Transmit_FS(data, len));
+    return SCPI_RES_OK;
+}
 
-extern const scpi_command_t scpi_commands[];
-extern scpi_interface_t scpi_interface;
-extern char scpi_input_buffer[];
-extern scpi_error_t scpi_error_queue_data[];
-extern scpi_t scpi_context;
+scpi_result_t SCPI_Flush(scpi_t * context) {
+    (void) context;
+    return SCPI_RES_OK;
+}
 
-size_t SCPI_Write(scpi_t * context, const char * data, size_t len);
-int SCPI_Error(scpi_t * context, int_fast16_t err);
-scpi_result_t SCPI_Control(scpi_t * context, scpi_ctrl_name_t ctrl, scpi_reg_val_t val);
-scpi_result_t SCPI_Reset(scpi_t * context);
-scpi_result_t SCPI_Flush(scpi_t * context);
+int SCPI_Error(scpi_t * context, int_fast16_t err) {
+    (void) context;
+    char _err[50];
+    sprintf(_err, "**ERROR: %d, \"%s\"\r\n", (int16_t) err, SCPI_ErrorTranslate(err));
+    CDC_Transmit_FS(_err, 50);
+    return 0;
+}
 
+scpi_result_t SCPI_Control(scpi_t * context, scpi_ctrl_name_t ctrl, scpi_reg_val_t val) {
+    (void) context;
+    char _err[50];
+    if (SCPI_CTRL_SRQ == ctrl) {
+        sprintf(_err, "**SRQ: 0x%X (%d)\r\n", val, val);
+    } else {
+        sprintf(_err, "**CTRL %02x: 0x%X (%d)\r\n", ctrl, val, val);
+    }
+    CDC_Transmit_FS(_err, 50);
+    return SCPI_RES_OK;
+}
 
-scpi_result_t SCPI_SystemCommTcpipControlQ(scpi_t * context);
+scpi_result_t SCPI_Reset(scpi_t * context) {
+    (void) context;
+    char _err[50];
+    sprintf(_err, "**Reset\r\n");
+    CDC_Transmit_FS(_err, 50);
+    return SCPI_RES_OK;
+}
 
-#endif /* __SCPI_DEF_H_ */
+scpi_result_t SCPI_SystemCommTcpipControlQ(scpi_t * context) {
+    (void) context;
+
+    return SCPI_RES_ERR;
+}
+
+/* END OF LICENSE */

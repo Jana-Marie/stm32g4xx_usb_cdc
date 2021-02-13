@@ -19,7 +19,7 @@ This repo contains a STM32G474 USB CDC example implementation, combined with [Ja
 - **testscripts/** : Contains some python test scripts and example software
 
 
-### How to use the CDC-library
+### How to use the CDC-library for your own project
 
 - Copy `usb_cdc_g4/` and its contents to your project folder.
 

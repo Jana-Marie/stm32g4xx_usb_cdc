@@ -18,10 +18,11 @@ int main(void)
 
   MX_GPIO_Init();
   MX_USB_PCD_Init();
+  MX_USB_Device_Init();
 
   HAL_GPIO_WritePin(GPIOB, LED_B_Pin, 0);
-
-  MX_USB_Device_Init();
+  HAL_GPIO_WritePin(GPIOB, LED_R_Pin, 1);
+  HAL_GPIO_WritePin(GPIOB, LED_G_Pin, 1);
 
   SCPI_Init(&scpi_context,
       scpi_commands,

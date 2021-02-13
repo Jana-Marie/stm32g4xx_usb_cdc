@@ -3,7 +3,7 @@ import pyvisa as visa
 import time
 
 rm = visa.ResourceManager('@py')
-smu = rm.open_resource("ASRL/dev/ttyACM0::INSTR")
+smu = rm.open_resource("ASRL/dev/ttyACM1::INSTR")
 
 print(smu.query("*IDN?"))
 

@@ -13,10 +13,10 @@ A query speed test can be performed by running `testscripts/speedtest.py`, perfo
 
 ### Working example instruments
 
-[NiklasFauth's Wireless Charging SMU](https://github.com/NiklasFauth/charge-hf)
+[Lucys Wireless Charging SMU](https://github.com/NiklasFauth/charge-hf)
 
 
-[Jan--Henrik's Mini-TDR](https://github.com/Jan--Henrik/Mini-TDR)
+[Jana Maries Mini-TDR](https://github.com/Jana-Marie/Mini-TDR)
 
 
 ### Folder structure

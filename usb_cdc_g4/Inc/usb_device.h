@@ -35,7 +35,7 @@
 /* USER CODE BEGIN INCLUDE */
 void MX_USB_PCD_Init(void);
 
-PCD_HandleTypeDef hpcd_USB_FS;
+extern PCD_HandleTypeDef hpcd_USB_FS;
 /* USER CODE END INCLUDE */
 
 /** @addtogroup USBD_OTG_DRIVER
